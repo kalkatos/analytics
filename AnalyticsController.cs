@@ -46,7 +46,7 @@ namespace Kalkatos.Analytics
         {
 			if (!CheckInitialization())
 				return;
-			string key = string.IsNullOrEmpty(optValue) ? name : $"{name}&{optValue}";
+			string key = string.IsNullOrEmpty(optValue) ? $"UniqueEvent:{name}" : $"UniqueEvent:{name}:{optValue}";
 			if (!string.IsNullOrEmpty(Storage.Load(key, null)))
 				return;
 			SendEventWithString(name, optValue);
