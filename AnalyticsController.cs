@@ -3,41 +3,48 @@
 
 namespace Kalkatos.Analytics
 {
-    public class Analytics
+    public class AnalyticsController
     {
 		public static bool SendDebug;
-		public static IAnalyticsSender Sender;
+
+		private static IAnalyticsSender sender;
+
+		public static void Initialize (IAnalyticsSender sender, bool sendDebug = true)
+        {
+			AnalyticsController.sender = sender;
+			SendDebug = sendDebug;
+        }
 
 		public static void SendEvent (string name)
         {
-			if (!CheckSender())
+			if (!CheckInitialization())
 				return;
 			if (SendDebug)
-				Logger.Log($"[Analytics] Event: {name}");
-            Sender.SendEvent(name);
+				Logger.Log($"[AnalyticsController] Event: {name}");
+            sender.SendEvent(name);
         }
 
 		public static void SendEventWithString (string name, string str)
         {
-			if (!CheckSender())
+			if (!CheckInitialization())
 				return;
 			if (SendDebug)
-				Logger.Log($"[Analytics] Event: {name} with value: {str}");
-			Sender.SendEventWithString(name, str); 
+				Logger.Log($"[AnalyticsController] Event: {name} with value: {str}");
+			sender.SendEventWithString(name, str); 
         }
 
 		public static void SendEventWithNumber (string name, float value)
         {
-			if (!CheckSender())
+			if (!CheckInitialization())
 				return;
 			if (SendDebug)
-				Logger.Log($"[Analytics] Event: {name} with value: {value}");
-			Sender.SendEventWithNumber(name, value); 
+				Logger.Log($"[AnalyticsController] Event: {name} with value: {value}");
+			sender.SendEventWithNumber(name, value); 
         }
 
 		public static void SendUniqueEvent (string name, string optValue = null)
         {
-			if (!CheckSender())
+			if (!CheckInitialization())
 				return;
 			string key = string.IsNullOrEmpty(optValue) ? name : $"{name}&{optValue}";
 			if (!string.IsNullOrEmpty(Storage.Load(key, null)))
@@ -48,11 +55,11 @@ namespace Kalkatos.Analytics
 
 		public static void SendEventWithFilter (string name, float value, params float[] orderedFilterTiers)
         {
-			if (!CheckSender())
+			if (!CheckInitialization())
 				return;
 			if (orderedFilterTiers == null)
             {
-				Logger.LogError("[Analytics] orderedFilterTiers is null.");
+				Logger.LogError("[AnalyticsController] orderedFilterTiers is null.");
                 return; 
             }
             for (int i = 0; i < orderedFilterTiers.Length; i++)
@@ -65,11 +72,11 @@ namespace Kalkatos.Analytics
             }
         }
 
-		private static bool CheckSender ()
+		private static bool CheckInitialization ()
         {
-			if (Sender == null)
+			if (sender == null)
             {
-                Logger.LogError("Analytics Sender is null. Please set it first");
+                Logger.LogError("AnalyticsController must be initialized. Call Initialize first with a sender.");
 				return false;
             }
 			return true;
