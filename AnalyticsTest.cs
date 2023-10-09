@@ -10,7 +10,7 @@ namespace Kalkatos.Analytics.Unity
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoad ()
         {
-            Analytics.Sender = new AnalyticsTest();
+            AnalyticsController.Initialize(new AnalyticsTest());
         }
 
         public void SendEvent (string name)

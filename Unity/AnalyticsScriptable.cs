@@ -20,27 +20,27 @@ namespace Kalkatos.Analytics.Unity
 
         public void SendEvent (string name)
         {
-            Analytics.SendEvent(name);
+            AnalyticsController.SendEvent(name);
         }
 
         public void SendEvent (SignalString signalString)
         {
-            Analytics.SendEvent(signalString.Value);
+            AnalyticsController.SendEvent(signalString.Value);
         }
 
         public void SendUniqueEvent (string name)
         {
-            Analytics.SendUniqueEvent(name);
+            AnalyticsController.SendUniqueEvent(name);
         }
 
         public void SendUniqueEvent (SignalString signalString)
         {
-            Analytics.SendUniqueEvent(signalString.Value);
+            AnalyticsController.SendUniqueEvent(signalString.Value);
         }
 
         public void SendEventWithString (string key, string value)
         {
-            Analytics.SendEventWithString(key, value);
+            AnalyticsController.SendEventWithString(key, value);
         }
 
         public void SendEventWithString (string value)
@@ -50,7 +50,7 @@ namespace Kalkatos.Analytics.Unity
                 Logger.LogWarning($"[AnalyticsScriptable] Key is not set. Trying to send value {value}");
                 return;
             }
-            Analytics.SendEventWithString(key, value);
+            AnalyticsController.SendEventWithString(key, value);
         }
 
         public void SendEventWithString (SignalString value)
@@ -60,17 +60,17 @@ namespace Kalkatos.Analytics.Unity
                 Logger.LogWarning($"[AnalyticsScriptable] Key is not set. Trying to send value {value}");
                 return;
             }
-            Analytics.SendEventWithString(key, value.Value);
+            AnalyticsController.SendEventWithString(key, value.Value);
         }
 
         public void SendEventWithString (SignalState signalState)
         {
-            Analytics.SendEventWithString(signalState.Key, signalState.Value);
+            AnalyticsController.SendEventWithString(signalState.Key, signalState.Value);
         }
 
         public void SendEventWithFloat (string key, float value)
         {
-            Analytics.SendEventWithNumber(key, value);
+            AnalyticsController.SendEventWithNumber(key, value);
         }
 
         public void SendEventWithFloat (float value)
@@ -80,7 +80,7 @@ namespace Kalkatos.Analytics.Unity
                 Logger.LogWarning($"[AnalyticsScriptable] Key is not set. Trying to send value {value}");
                 return;
             }
-            Analytics.SendEventWithNumber(key, value);
+            AnalyticsController.SendEventWithNumber(key, value);
         }
 
         public void SendEventWithFloat (SignalFloat value)
@@ -90,7 +90,7 @@ namespace Kalkatos.Analytics.Unity
                 Logger.LogWarning($"[AnalyticsScriptable] Key is not set. Trying to send value {value}");
                 return;
             }
-            Analytics.SendEventWithNumber(key, value.Value);
+            AnalyticsController.SendEventWithNumber(key, value.Value);
         }
 
         public void SendEventWithFloat (SignalState signalState)
@@ -100,7 +100,7 @@ namespace Kalkatos.Analytics.Unity
                 Logger.LogWarning($"[AnalyticsScriptable] Value is not float. Trying to send value {signalState.Key}={signalState.Value}");
                 return;
             }
-            Analytics.SendEventWithNumber(key, value);
+            AnalyticsController.SendEventWithNumber(key, value);
         }
     }
 }
