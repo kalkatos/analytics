@@ -47,10 +47,11 @@ namespace Kalkatos.Analytics
 			if (!CheckInitialization())
 				return;
 			string key = string.IsNullOrEmpty(optValue) ? $"UniqueEvent:{name}" : $"UniqueEvent:{name}:{optValue}";
-			if (!string.IsNullOrEmpty(Storage.Load(key, null)))
+			string loaded = Storage.Load(key, null);
+			if (!string.IsNullOrEmpty(loaded))
 				return;
 			SendEventWithString(name, optValue);
-			Storage.Save(key, "");
+			Storage.Save(key, key);
         }
 
 		public static void SendEventWithFilter (string name, float value, params float[] orderedFilterTiers)
