@@ -1,4 +1,4 @@
-#if UNITY_2018_1_OR_NEWER
+#if UNITY_2018_1_OR_NEWER && GAME_ANALYTICS
 
 using GameAnalyticsSDK;
 
@@ -27,5 +27,6 @@ namespace Kalkatos.Analytics.Unity
         }
     }
 }
+
 
 #endif
